@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Altyn</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+        <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="logo">
+                  
+                </div>
+                <div class="links">
+                    <div class="back_box">
+                        <a href="/">
+                            <button class="button">BACK</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="content_login">
+                <div class="login">
+                    <h1>Welcome!</h1>
+                    <input type="email" class="input" placeholder="e-mail">
+                    <br>
+                    <input type="password" class="input" placeholder="password">
+                    <br>
+                    <div class="login_buttons">
+                        <a href="#">
+                            <button class="button">LOG IN</button>
+                        </a>
+                        <a href="/signup/">
+                            <button class="button">CREATE ACCOUNT</button>
+                        </a>
+                    </div>
+                    <br>
+                    <p class="cursor gray">Forgot your password?</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

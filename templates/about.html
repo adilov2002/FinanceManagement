@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altyn</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="logo">
+                <a href="mainpage.html">
+                    <img src="{% static '/images/money.png' %}"><span>FM</span>
+                </a>
+            </div>
+            <div class="links">
+                <div class="links_box">
+                    <a class="link" href="/">HOME</a>
+                    <a class="link" href="/about/">ABOUT</a>
+                    <a class="link" href="/contact/">CONTACT</a>
+                    <a href="/signup/">
+                        <button class="button_register">SIGN UP</button>
+                    </a>
+                    <a href="/login/">
+                        <button class="button">LOG IN</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content_about">
+            <div class="c_center">
+                <h1>ABOUT US</h1>
+                <h3>FM Company is a finance management company.</h3>
+                <p>We work together to help people to control their money.</p>
+            </div>
+            <div class="about_dev">
+                {% for key, value in dict.items %}
+                <div class="card">
+                    {% if value.url == 'zhanniyet' %}
+                     <img src="{% static '/images/zhanniyet.png' %}" alt="">
+                    {% endif %}
+                    {% if value.url == 'sabyr' %}
+                        <img src="{% static '/images/sabyr.png' %}" alt="">
+                    {% endif %}
+
+                    <div class="card_content">
+                        <h2>{{ value.position }}</h2>
+                        <h4>{{ value.fullname }}</h4>
+                        <h4>phone: {{ value.phone }}</h4>
+                        <h4>email: {{ value.email }}</h4>
+                        <h4>hours: 09:00-18:30</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+</body>
+
+</html>
