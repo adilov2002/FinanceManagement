@@ -32,3 +32,4 @@ class Purchases(models.Model):
     user = models.ForeignKey(Users, verbose_name="User", on_delete=models.CASCADE)
     item = models.ForeignKey(Items, verbose_name="Item", on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+
