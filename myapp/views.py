@@ -22,28 +22,5 @@ def about(request):
     return render(request, 'about.html', {"dict": users_data})
 
 
-def profile(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-
-        if Users.objects.filter(email=email).exists():
-            user = getUser(email)
-            print(user.name, user.email, user.surname)
-            if password == user.password:
-                return render(request, 'profile.html', {'user': user})
-            else:
-                print('password is not matching!')
-                return redirect('/login?password_error')
-        else:
-            print('user with this email is not exist!')
-    else:
-        return render(request, 'profile.html', {'user': request.user})
-
-
 def contact(request):
     return render(request, 'contact.html')
-
-
-def getUser(email):
-    return Users.objects.get(email=email)
