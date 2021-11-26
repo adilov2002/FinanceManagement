@@ -24,43 +24,33 @@
 </head>
 <body>
     <div class="main">
-        <div class="header">
-            <div class="logo">
-                <a href="/">
-                    <img src="{% static '/images/money.png' %}"><span>FM</span>
+        <div class="side_nav">
+            <div class="user_info">
+                <img src="https://ui-avatars.com/api/?name=🎅">
+                <div class="user_data">
+                    <p>{{ user.surname }} {{ user.name }}</p>
+                    <span>{% if user.role.name == 'ROLE_USER' %} user {% else %} admin {% endif %}  </span>
+                </div>
+            </div>
+            <div class="navigation">
+                <a href="#">
+                    <div class="nav_elem">
+                        <h3><i class="far fa-user"></i>Personal profile</h3>
+                    </div>
+                </a>
+                <a href="/purchases">
+                    <div class="nav_elem">
+                        <h3><i class="far fa-list-alt"></i>Purchases</h3>
+                    </div>
+                </a>
+                <a href="/logout">
+                    <div class="nav_elem">
+                        <h3><i class="fal fa-sign-out-alt"></i>Log out</h3>
+                    </div>
                 </a>
             </div>
-            <div class="links">
-                <div class="links_box">
-                    <a class="link" href="/">HOME</a>
-                    <a class="link" href="/about/">ABOUT</a>
-                    <a class="link" href="/contact/">CONTACT</a>
-                    <a href="/signup/">
-                        <button class="button_register">SIGN UP</button>
-                    </a>
-                    <a href="/login/">
-                        <button class="button">LOG IN</button>
-                    </a>
-                </div>
-            </div>
         </div>
-        <div class="content">
-            <div class="c_left">
-                <div class="block">
-                    <h1>THIS IS YOUR PROFILE ABOBA</h1>
-                    <a href="login/">
-                        <button class="button_outline">
-                            Get Started<i class="fas fa-angle-double-right"></i>
-                        </button>
-                    </a>
-                </div>
-            </div>
-            <div class="c_right">
-                <img src="https://image.freepik.com/free-vector/capital-investment-sponsorship-money-donation-startup-funding-financial-support-philanthropy-design-element-investor-putting-money-light-bulb_335657-3543.jpg" alt="">
-            </div>
-        </div>
-        <div class="footer">
-        </div>
+        <div class=""></div>
     </div>
 </body>
 </html>
