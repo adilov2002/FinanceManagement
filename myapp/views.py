@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from myapp.models import Users
 
 
 def home(request):

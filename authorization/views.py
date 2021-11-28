@@ -1,53 +1,50 @@
 from django.shortcuts import render, redirect
-from myapp.models import Users
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from .forms import CreateUserForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
-def login(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
 
-        if True:
-            user = Users.objects.get(email=email)
-            print(user, user.password)
-            # print(user.name, user.email, user.surname)
-            my_user = authenticate(email=user.email, password=user.password)
-            print(my_user)
-            if my_user:
-                return redirect('/finance/profile/')
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('profile')
             else:
-                print('password is not matching!')
-                return redirect('/login?password_error')
-        else:
-            print('user with this email is not exist!')
-    return render(request, 'login.html')
+                messages.info(request, "username or password is incorrect")
+
+        return render(request, 'login.html')
 
 
-def signup(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        surname = request.POST['surname']
-        email = request.POST['e-mail']
-        password = request.POST['password']
-        re_password = request.POST['re-password']
+def register(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
+    else:
+        form = CreateUserForm()
 
-        if re_password == password:
-            if Users.objects.filter(email=email).exists():
-                print('user with this email already exists!')
-            else:
-                user = Users.objects.create(name=name, surname=surname, email=email, password=password, role_id=2)
-                user.save()
-                print('user registered')
-        else:
-            print('passwords are not matching!')
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'User ' + username + ' was created')
+            return redirect('login')
 
-        return redirect('/')
-    return render(request, 'signup.html')
+        data = {
+            'form': form,
+        }
+
+        return render(request, 'register.html', data)
 
 
-def logout(request):
-    if request.method == 'POST':
-        pass
-    return render(request, 'login.html')
+def logout_user(request):
+    logout(request)
+    return redirect('login')

@@ -177,6 +177,7 @@ a {
     width: 85%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .c_left {
@@ -342,6 +343,20 @@ a {
 .nav_elem i {
     padding-right: 10px;
 }
+
+.alert {
+    width: 85%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fb9838;
+    color: white;
+}
+
 
 
 @media (max-width: 800px) {

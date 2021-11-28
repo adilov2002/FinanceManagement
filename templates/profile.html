@@ -28,8 +28,8 @@
             <div class="user_info">
                 <img src="https://ui-avatars.com/api/?name=🎅">
                 <div class="user_data">
-                    <p>{{ user.surname }} {{ user.name }}</p>
-                    <span>{% if user.role.name == 'ROLE_USER' %} user {% else %} admin {% endif %}  </span>
+                    <p>{{ request.user }}</p>
+                    <span>user</span>
                 </div>
             </div>
             <div class="navigation">
@@ -43,7 +43,7 @@
                         <h3><i class="far fa-list-alt"></i>Purchases</h3>
                     </div>
                 </a>
-                <a href="/logout">
+                <a href="{% url 'logout' %}">
                     <div class="nav_elem">
                         <h3><i class="fal fa-sign-out-alt"></i>Log out</h3>
                     </div>
