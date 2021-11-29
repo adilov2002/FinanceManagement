@@ -1,56 +1,34 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altyn</title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-        
-    <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
-        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
-        crossorigin="anonymous"></script> -->
+{% extends 'main_layout.html' %}
 
-    <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
-
-</head>
-<body>
-    <div class="main">
-        <div class="side_nav">
-            <div class="user_info">
-                <img src="https://ui-avatars.com/api/?name=🎅">
-                <div class="user_data">
-                    <p>{{ request.user }}</p>
-                    <span>user</span>
-                </div>
-            </div>
-            <div class="navigation">
-                <a href="#">
-                    <div class="nav_elem">
-                        <h3><i class="far fa-user"></i>Personal profile</h3>
-                    </div>
-                </a>
-                <a href="/purchases">
-                    <div class="nav_elem">
-                        <h3><i class="far fa-list-alt"></i>Purchases</h3>
-                    </div>
-                </a>
-                <a href="{% url 'logout' %}">
-                    <div class="nav_elem">
-                        <h3><i class="fal fa-sign-out-alt"></i>Log out</h3>
-                    </div>
-                </a>
+{% block content %}
+    <div class="main_content">
+        <div class="header b_border j_start">
+            <div class="true_text">
+                <h3>Your profile page</h3>
             </div>
         </div>
-        <div class=""></div>
+        <div class="page_content">
+            <div class="page_form">
+                <label>Username:</label>
+                <input type="text" class="spec_input" name="username" placeholder="username" value="{{ request.user.username }}" >
+            </div>
+            <div class="page_form">
+                <label>Email:</label>
+                <input type="email" readonly class="spec_input" name="email" placeholder="email" value="{{ request.user.email }}" >
+            </div>
+            <h3>Change password</h3>
+            <div class="page_form">
+                <label>Old password:</label>
+                <input type="password" class="spec_input" name="password" placeholder="old password">
+            </div>
+            <div class="page_form">
+                <label>New password:</label>
+                <input type="password" class="spec_input" name="password1" placeholder="new password">
+            </div>
+            <div class="page_form">
+                <label>Re-type new password:</label>
+                <input type="password" class="spec_input" name="password2" placeholder="re-type new password">
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

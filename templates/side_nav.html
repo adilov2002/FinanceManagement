@@ -1,0 +1,33 @@
+<div class="side_nav">
+    <div class="user_info">
+        <img src="https://ui-avatars.com/api/?name=🎅">
+        <div class="user_data">
+            <p>{{ request.user }}</p>
+            <span>{{ request.user.groups.get }}</span>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="#">
+            <div class="nav_elem">
+                <h3><i class="far fa-user"></i>Personal profile</h3>
+            </div>
+        </a>
+        {% if request.user.is_staff %}
+        <a href="/categories">
+            <div class="nav_elem">
+                <h3><i class="far fa-layer-group"></i>Categories</h3>
+            </div>
+        </a>
+        {% endif %}
+        <a href="/purchases">
+            <div class="nav_elem">
+                <h3><i class="far fa-list-alt"></i>Purchases</h3>
+            </div>
+        </a>
+        <a href="{% url 'logout' %}">
+            <div class="nav_elem">
+                <h3><i class="fal fa-sign-out-alt"></i>Log out</h3>
+            </div>
+        </a>
+    </div>
+</div>

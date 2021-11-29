@@ -1,33 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import User
-from django.contrib.auth.models import UserManager
-
-
-class Roles(models.Model):
-    """Roles"""
-    name = models.CharField("name", max_length=150)
-
-
-# class Users(AbstractBaseUser):
-#     """Users"""
-#     name = models.CharField("name", max_length=100)
-#     surname = models.CharField("surname", max_length=100)
-#     username = models.CharField('username', max_length=20, unique=True)
-#     email = models.EmailField(unique=True)
-#     password = models.CharField("password", max_length=10)
-#     role = models.ForeignKey(Roles, verbose_name="Role", on_delete=models.CASCADE)
-#
-#     EMAIL_FIELD = 'email'
-#     USERNAME_FIELD = 'username'
-#     REQUIRED_FIELDS = ['email', 'password']
-#
-#     objects = UserManager()
+from django.contrib.auth.models import AbstractBaseUser, User
 
 
 class Categories(models.Model):
     """Categories"""
     name = models.CharField("name", max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Items(models.Model):
@@ -36,6 +20,13 @@ class Items(models.Model):
     price = models.PositiveSmallIntegerField("price", default=0)
     category = models.ForeignKey(Categories, verbose_name="Category", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Item'
+        verbose_name_plural = 'Items'
+
 
 class Purchases(models.Model):
     """Purchases"""
@@ -43,3 +34,9 @@ class Purchases(models.Model):
     item = models.ForeignKey(Items, verbose_name="Item", on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.user.username + '_' + self.item.name + '_' + self.date.date().__str__()
+
+    class Meta:
+        verbose_name = 'Purchase'
+        verbose_name_plural = 'Purchases'
