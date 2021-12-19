@@ -24,15 +24,29 @@ def categories(request):
 @login_required(login_url='login')
 def purchases(request):
     if request.method == 'POST':
-        user = request.user
-        category = request.POST['category']
-        cat = Categories.objects.get(name=category)
-        name = request.POST['name']
-        price = request.POST['price']
-        date = request.POST['date']
-        item = Items.objects.create(name=name, price=price, category_id=cat.id)
-        purchase = Purchases.objects.create(user=user, item_id=item.id, date=date)
-        return redirect('/accounts/purchases')
+        if "addTransaction" in request.POST:
+            user = request.user
+            category = request.POST['category']
+            cat = Categories.objects.get(name=category)
+            name = request.POST['name']
+            price = request.POST['price']
+            date = request.POST['date']
+            item = Items.objects.create(name=name, price=price, category_id=cat.id)
+            purchase = Purchases.objects.create(user=user, item_id=item.id, date=date)
+            return redirect('/accounts/purchases')
+        elif "updateTransaction" in request.POST:
+            user = request.user
+            purchase_id = request.POST['purchase_id']
+            item_id1 = request.POST['item_id']
+            category = request.POST['category']
+            cat = Categories.objects.get(name=category)
+            name = request.POST['name']
+            price = request.POST['price']
+            date = request.POST['date']
+            Items.objects.filter(id=item_id1).update(name=name, price=price, category_id=cat.id)
+            item = Items.objects.get(id=item_id1)
+            purchase = Purchases.objects.filter(id=purchase_id).update(user=user, item_id=item.id, date=date)
+            return redirect('/accounts/purchases')
 
     category_list = list(Categories.objects.values_list('name', flat=True))
     purchase_data = Purchases.objects.filter(user__username=request.user.username)

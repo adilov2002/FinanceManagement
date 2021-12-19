@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class Categories(models.Model):
     """Categories"""
+    id = models.AutoField(primary_key=True)
     name = models.CharField("name", max_length=100)
 
     def __str__(self):
@@ -17,6 +18,7 @@ class Categories(models.Model):
 
 class Items(models.Model):
     """Items"""
+    id = models.AutoField(primary_key=True)
     name = models.CharField("name", max_length=100)
     price = models.PositiveSmallIntegerField("price", default=0)
     category = models.ForeignKey(Categories, verbose_name="Category", on_delete=models.CASCADE)
