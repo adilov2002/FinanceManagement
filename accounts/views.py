@@ -112,12 +112,18 @@ def purchases(request):
     merged_tables = list(list(purchase_data) + list(incomes))
     merged_tables.sort(key=lambda d: d.date)
 
+    diff = []
+    prev_income = 0
+    for d1, d2 in zip(correct_income, expense):
+        diff.append(d1 - d2)
+
     data = {
         'purchases': merged_tables,
         'income_days': income_days,
         'expense': expense,
         'income': correct_income,
         'cat': cat,
+        'diff': diff,
         'category_list': category_list,
         'date': merged_datas,
         'sum_income': sum_income,
