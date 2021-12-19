@@ -29,8 +29,9 @@ def purchases(request):
         cat = Categories.objects.get(name=category)
         name = request.POST['name']
         price = request.POST['price']
+        date = request.POST['date']
         item = Items.objects.create(name=name, price=price, category_id=cat.id)
-        purchase = Purchases.objects.create(user=user, item_id=item.id)
+        purchase = Purchases.objects.create(user=user, item_id=item.id, date=date)
         return redirect('/accounts/purchases')
 
     category_list = list(Categories.objects.values_list('name', flat=True))
