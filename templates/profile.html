@@ -9,26 +9,24 @@
         </div>
         <div class="page_content">
             <div class="page_form">
-                <label>Username:</label>
+                <label>Username</label>
                 <input type="text" class="spec_input" name="username" placeholder="username" value="{{ request.user.username }}" >
             </div>
             <div class="page_form">
-                <label>Email:</label>
+                <label>Email</label>
                 <input type="email" readonly class="spec_input" name="email" placeholder="email" value="{{ request.user.email }}" >
             </div>
             <h3>Change password</h3>
             <div class="page_form">
-                <label>Old password:</label>
                 <input type="password" class="spec_input" name="password" placeholder="old password">
             </div>
             <div class="page_form">
-                <label>New password:</label>
                 <input type="password" class="spec_input" name="password1" placeholder="new password">
             </div>
             <div class="page_form">
-                <label>Re-type new password:</label>
                 <input type="password" class="spec_input" name="password2" placeholder="re-type new password">
             </div>
+            <button type="submit" class="btn btn-dark">Change</button>
         </div>
     </div>
 {% endblock %}

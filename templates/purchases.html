@@ -1,0 +1,157 @@
+{% extends 'main_layout.html' %}
+
+{% block content %}
+    <div class="main_content">
+        <div class="header b_border j_start">
+            <div class="true_text">
+                <h3>Purchases Page</h3>
+            </div>
+        </div>
+        <div class="back_table">
+            <div class="page_table">
+                <div class="graph">
+                    <canvas id="myChart" width="400" height="500"></canvas>
+                </div>
+{#                <div class="choose-graph">#}
+{#                    <button class="btn btn-warning" onclick="line()">Line graph</button>#}
+{#                    <button class="btn btn-warning" onclick="bar()">Bar graph</button>#}
+{#                    <button class="btn btn-warning" onclick="pie()">Pie chart</button>#}
+{#                </div>#}
+                <div class="my_table">
+                    <div class="top">
+                        <h3 class="">Transactions</h3>
+
+                        <button class="add_button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+
+                            Add Transaction
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="category" class="form-label">Category</label>
+                                                <select class="form-select" name="category" aria-label="Default select example">
+                                                    <option selected>Choose category of an item</option>
+                                                    {% for category in category_list %}
+                                                        <option value="{{ category }}">{{ category }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                       placeholder="Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="price" class="form-label">Price</label>
+                                                <input type="number" min="0" max="1000000" class="form-control" id="price" name="price"
+                                                       placeholder="Price">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <td width="5%">ID</td>
+                            <td width="30%">Item</td>
+                            <td>Price</td>
+                            <td>Category</td>
+                            <td>Date</td>
+                            <td>Details</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in purchases %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ item.item.name }}</td>
+                                <td>{{ item.item.price }} tg</td>
+                                <td>{{ item.item.category.name }}</td>
+                                <td>{{ item.date }}</td>
+                                <td>
+                                    <form action="" method="get">
+                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                        <button type="submit" class="btn btn-sm btn-info">Info</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let bar_type = 'line';
+
+        function line(){
+            bar_type = 'line';
+        }
+        function bar(){
+            bar_type = 'bar';
+        }
+        function pie(){
+            bar_type = 'pie';
+        }
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: bar_type,
+            data: {
+                labels: {{date|safe}},
+                datasets: [{
+                    label: 'Money',
+                    data: {{chart_data|safe}},
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.9)',
+                        'rgba(255, 99, 132, 0.9)',
+                        'rgba(255, 206, 86, 0.9)',
+                        'rgba(75, 192, 192, 0.9)',
+                        'rgba(153, 102, 255, 0.9)',
+                        'rgba(255, 159, 64, 0.9)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    },
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        })
+    </script>
+{% endblock %}
