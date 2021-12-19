@@ -56,3 +56,17 @@ class Feedback(models.Model):
     def __str__(self):
         return self.id.__str__() + '_' + self.name + '_' + self.surname + '_' + self.email
 
+
+class Income(models.Model):
+    """Income"""
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+    price = models.PositiveSmallIntegerField("price", default=0)
+    date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.user.username + '_' + self.price.__str__() + '_' + self.date.__str__()
+
+    class Meta:
+        verbose_name = 'Income'
+        verbose_name_plural = 'Incomes'
