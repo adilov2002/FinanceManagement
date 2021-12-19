@@ -40,9 +40,9 @@
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="category" class="form-label">Category</label>
-                                                <select class="form-select" name="category"
+                                                <select class="form-select" name="category" required
                                                         aria-label="Default select example">
-                                                    <option selected>Choose category of an item</option>
+                                                    <option selected disabled value="">Choose category of an item</option>
                                                     {% for category in category_list %}
                                                         <option value="{{ category }}">{{ category }}</option>
                                                     {% endfor %}
@@ -50,18 +50,18 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="name" name="name"
+                                                <input type="text" class="form-control" id="name" name="name" required
                                                        placeholder="Name">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="price" class="form-label">Price</label>
-                                                <input type="number" min="0" max="1000000" class="form-control"
+                                                <input type="number" min="0" max="1000000" class="form-control" required
                                                        id="price" name="price"
                                                        placeholder="Price">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="form-label">Date</label>
-                                                <input type="date" class="form-control"
+                                                <input type="date" class="form-control" placeholder="mm-dd-YYYY" required
                                                        id="date" name="date">
                                             </div>
                                         </div>
@@ -81,12 +81,11 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <td width="5%">ID</td>
-                            <td width="30%">Item</td>
-                            <td>Price</td>
-                            <td>Category</td>
+                            <td width="10%">ID</td>
+                            <td width="40%">Item</td>
                             <td>Date</td>
-                            <td>Details</td>
+                            <td width="10%">Update</td>
+                            <td width="10%">Details</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -94,12 +93,15 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ item.item.name }}</td>
-                                <td>{{ item.item.price }} tg</td>
-                                <td>{{ item.item.category.name }}</td>
                                 <td>{{ item.date }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#itemModal{{ item.id }}">Update
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                            data-bs-target="#itemInfo{{ item.id }}">Info
                                     </button>
                                 </td>
                                 <!-- Modal -->
@@ -110,7 +112,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel{{ item.id }}">Transaction
-                                                    info</h5>
+                                                    update</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -121,9 +123,9 @@
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">Category</label>
-                                                        <select class="form-select" name="category"
+                                                        <select class="form-select" name="category" required
                                                                 aria-label="Default select example">
-                                                            <option>Choose category of an item</option>
+                                                            <option disabled value="">Choose category of an item</option>
                                                             {% for category in category_list %}
                                                                 <option value="{{ category }}"
                                                                         {% if category == item.item.category.name %}
@@ -133,20 +135,21 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Name</label>
-                                                        <input type="text" class="form-control" id="name" name="name"
+                                                        <input type="text" class="form-control" id="name" name="name" required
                                                                value="{{ item.item.name }}"
                                                                placeholder="Name">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="price" class="form-label">Price</label>
-                                                        <input type="number" min="0" max="1000000" class="form-control"
+                                                        <input type="number" min="0" max="1000000" class="form-control" required
                                                                value="{{ item.item.price }}"
                                                                id="price" name="price"
                                                                placeholder="Price">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="date" class="form-label">Date</label>
-                                                        <input type="date" class="form-control"
+                                                        <input type="date" class="form-control" required
+                                                               value="{{ item.date|date:"Y-m-d" }}"
                                                                id="date" name="date">
                                                     </div>
                                                 </div>
@@ -160,6 +163,54 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="itemInfo{{ item.id }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabelInfo{{ item.id }}"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabelInfo{{ item.id }}">
+                                                    Transaction
+                                                    info</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="category" class="form-label">Category</label>
+                                                    <input type="text" class="form-control" id="category" name="category"
+                                                           value="{{ item.item.category.name }}" readonly
+                                                           placeholder="Category">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Name</label>
+                                                    <input type="text" class="form-control" id="name" name="name" readonly
+                                                           value="{{ item.item.name }}"
+                                                           placeholder="Name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="price" class="form-label">Price</label>
+                                                    <input type="number" min="0" max="1000000" class="form-control" readonly
+                                                           value="{{ item.item.price }}"
+                                                           id="price" name="price"
+                                                           placeholder="Price">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="date" class="form-label">Date</label>
+                                                    <input type="date" class="form-control" readonly
+                                                           value="{{ item.date|date:"Y-m-d" }}"
+                                                           id="date" name="date">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
