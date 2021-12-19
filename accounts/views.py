@@ -63,7 +63,7 @@ def purchases(request):
             user = request.user
             price = request.POST['price']
             date = request.POST['date']
-            income_id = request.POST['id']
+            income_id = request.POST['income_id']
             Income.objects.filter(id=income_id).update(user=user, price=price, date=date)
             return redirect('/accounts/purchases')
 
