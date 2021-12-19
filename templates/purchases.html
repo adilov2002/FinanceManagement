@@ -98,7 +98,6 @@
                                 <td>{{ item.item.category.name }}</td>
                                 <td>{{ item.date }}</td>
                                 <td>
-                                    <input type="hidden" value="{{ item.id }}" name="purchase_id">
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#itemModal{{ item.id }}">Update
                                     </button>
@@ -117,6 +116,7 @@
                                             </div>
                                             <form action="" method="post">
                                                 {% csrf_token %}
+                                                <input type="hidden" value="{{ item.id }}" name="purchase_id">
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">Category</label>
