@@ -42,7 +42,8 @@
                                                 <label for="category" class="form-label">Category</label>
                                                 <select class="form-select" name="category" required
                                                         aria-label="Default select example">
-                                                    <option selected disabled value="">Choose category of an item</option>
+                                                    <option selected disabled value="">Choose category of an item
+                                                    </option>
                                                     {% for category in category_list %}
                                                         <option value="{{ category }}">{{ category }}</option>
                                                     {% endfor %}
@@ -61,7 +62,8 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="form-label">Date</label>
-                                                <input type="date" class="form-control" placeholder="mm-dd-YYYY" required
+                                                <input type="date" class="form-control" placeholder="mm-dd-YYYY"
+                                                       required
                                                        id="date" name="date">
                                             </div>
                                         </div>
@@ -125,7 +127,8 @@
                                                         <label for="category" class="form-label">Category</label>
                                                         <select class="form-select" name="category" required
                                                                 aria-label="Default select example">
-                                                            <option disabled value="">Choose category of an item</option>
+                                                            <option disabled value="">Choose category of an item
+                                                            </option>
                                                             {% for category in category_list %}
                                                                 <option value="{{ category }}"
                                                                         {% if category == item.item.category.name %}
@@ -135,13 +138,15 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="name" class="form-label">Name</label>
-                                                        <input type="text" class="form-control" id="name" name="name" required
+                                                        <input type="text" class="form-control" id="name" name="name"
+                                                               required
                                                                value="{{ item.item.name }}"
                                                                placeholder="Name">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="price" class="form-label">Price</label>
-                                                        <input type="number" min="0" max="1000000" class="form-control" required
+                                                        <input type="number" min="0" max="1000000" class="form-control"
+                                                               required
                                                                value="{{ item.item.price }}"
                                                                id="price" name="price"
                                                                placeholder="Price">
@@ -158,9 +163,13 @@
                                                             data-bs-dismiss="modal">
                                                         Close
                                                     </button>
-                                                    <button type="submit" name="updateTransaction"
-                                                            class="btn btn-primary">Update
-                                                    </button>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                                        <input type="hidden" value="{{ item.item.id }}" name="item_id">
+                                                        <button type="submit" name="updateTransaction"
+                                                                class="btn btn-primary">Update
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </form>
                                         </div>
@@ -181,19 +190,22 @@
                                             <div class="modal-body">
                                                 <div class="mb-3">
                                                     <label for="category" class="form-label">Category</label>
-                                                    <input type="text" class="form-control" id="category" name="category"
+                                                    <input type="text" class="form-control" id="category"
+                                                           name="category"
                                                            value="{{ item.item.category.name }}" readonly
                                                            placeholder="Category">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">Name</label>
-                                                    <input type="text" class="form-control" id="name" name="name" readonly
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                           readonly
                                                            value="{{ item.item.name }}"
                                                            placeholder="Name">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="price" class="form-label">Price</label>
-                                                    <input type="number" min="0" max="1000000" class="form-control" readonly
+                                                    <input type="number" min="0" max="1000000" class="form-control"
+                                                           readonly
                                                            value="{{ item.item.price }}"
                                                            id="price" name="price"
                                                            placeholder="Price">
@@ -209,6 +221,9 @@
                                                 <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">
                                                     Close
+                                                </button>
+                                                <button type="submit" name="deleteTransaction"
+                                                        class="btn btn-danger">Delete
                                                 </button>
                                             </div>
                                         </div>
