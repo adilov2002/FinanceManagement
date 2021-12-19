@@ -12,11 +12,11 @@
                 <div class="graph">
                     <canvas id="myChart" width="400" height="500"></canvas>
                 </div>
-{#                <div class="choose-graph">#}
-{#                    <button class="btn btn-warning" onclick="line()">Line graph</button>#}
-{#                    <button class="btn btn-warning" onclick="bar()">Bar graph</button>#}
-{#                    <button class="btn btn-warning" onclick="pie()">Pie chart</button>#}
-{#                </div>#}
+                {#                <div class="choose-graph">#}
+                {#                    <button class="btn btn-warning" onclick="line()">Line graph</button>#}
+                {#                    <button class="btn btn-warning" onclick="bar()">Bar graph</button>#}
+                {#                    <button class="btn btn-warning" onclick="pie()">Pie chart</button>#}
+                {#                </div>#}
                 <div class="my_table">
                     <div class="top">
                         <h3 class="">Transactions</h3>
@@ -40,7 +40,8 @@
                                         <div class="modal-body">
                                             <div class="mb-3">
                                                 <label for="category" class="form-label">Category</label>
-                                                <select class="form-select" name="category" aria-label="Default select example">
+                                                <select class="form-select" name="category"
+                                                        aria-label="Default select example">
                                                     <option selected>Choose category of an item</option>
                                                     {% for category in category_list %}
                                                         <option value="{{ category }}">{{ category }}</option>
@@ -54,15 +55,23 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="price" class="form-label">Price</label>
-                                                <input type="number" min="0" max="1000000" class="form-control" id="price" name="price"
+                                                <input type="number" min="0" max="1000000" class="form-control"
+                                                       id="price" name="price"
                                                        placeholder="Price">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="date" class="form-label">Date</label>
+                                                <input type="date" class="form-control"
+                                                       id="date" name="date">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" name="addTransaction" class="btn btn-primary">Save
+                                                changes
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -89,12 +98,72 @@
                                 <td>{{ item.item.category.name }}</td>
                                 <td>{{ item.date }}</td>
                                 <td>
-                                    <form action="" method="get">
-                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
-                                        <button type="submit" class="btn btn-sm btn-info">Info</button>
-                                    </form>
+                                    <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#itemModal{{ item.id }}">Update
+                                    </button>
                                 </td>
+                                <!-- Modal -->
+                                <div class="modal fade" id="itemModal{{ item.id }}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel{{ item.id }}"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{ item.id }}">Transaction
+                                                    info</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="category" class="form-label">Category</label>
+                                                        <select class="form-select" name="category"
+                                                                aria-label="Default select example">
+                                                            <option>Choose category of an item</option>
+                                                            {% for category in category_list %}
+                                                                <option value="{{ category }}"
+                                                                        {% if category == item.item.category.name %}
+                                                                        selected {% endif %}>{{ category }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="name" class="form-label">Name</label>
+                                                        <input type="text" class="form-control" id="name" name="name"
+                                                               value="{{ item.item.name }}"
+                                                               placeholder="Name">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="price" class="form-label">Price</label>
+                                                        <input type="number" min="0" max="1000000" class="form-control"
+                                                               value="{{ item.item.price }}"
+                                                               id="price" name="price"
+                                                               placeholder="Price">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="date" class="form-label">Date</label>
+                                                        <input type="date" class="form-control"
+                                                               id="date" name="date">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="submit" name="updateTransaction"
+                                                            class="btn btn-primary">Update
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
+
                         {% endfor %}
                         </tbody>
                     </table>
@@ -106,13 +175,15 @@
 
         let bar_type = 'line';
 
-        function line(){
+        function line() {
             bar_type = 'line';
         }
-        function bar(){
+
+        function bar() {
             bar_type = 'bar';
         }
-        function pie(){
+
+        function pie() {
             bar_type = 'pie';
         }
 
