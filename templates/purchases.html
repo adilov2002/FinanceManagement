@@ -20,18 +20,61 @@
                 <div class="my_table">
                     <div class="top">
                         <h3 class="">Transactions</h3>
-
-                        <button class="add_button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">+
-                            Add Transaction
-                        </button>
-
+                        <div>
+                            <button class="add_button" type="button" data-bs-toggle="modal" data-bs-target="#addIncome">
+                                +
+                                Add Income
+                            </button>
+                            <button class="add_button" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#addPurchase">+
+                                Add Transaction
+                            </button>
+                        </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        <div class="modal fade" id="addIncome" tabindex="-1" aria-labelledby="addIncomeLabel"
                              aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                                        <h5 class="modal-title" id="addIncomeLabel">Add Income</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="price" class="form-label">Price</label>
+                                                <input type="number" min="0" max="1000000" class="form-control" required
+                                                       id="price" name="price"
+                                                       placeholder="Price">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="date" class="form-label">Date</label>
+                                                <input type="date" class="form-control" placeholder="mm-dd-YYYY"
+                                                       required
+                                                       id="date" name="date">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" name="addIncome" class="btn btn-success">Add Income
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="addPurchase" tabindex="-1" aria-labelledby="addPurchaseLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addPurchaseLabel">Add Transaction</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
@@ -71,8 +114,8 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
-                                            <button type="submit" name="addTransaction" class="btn btn-primary">Save
-                                                changes
+                                            <button type="submit" name="addTransaction" class="btn btn-success">Add
+                                                Transaction
                                             </button>
                                         </div>
                                     </form>
@@ -243,44 +286,50 @@
 
         let bar_type = 'line';
 
-        function line() {
-            bar_type = 'line';
-        }
-
-        function bar() {
-            bar_type = 'bar';
-        }
-
-        function pie() {
-            bar_type = 'pie';
-        }
-
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: bar_type,
             data: {
                 labels: {{date|safe}},
-                datasets: [{
-                    label: 'Money',
-                    data: {{chart_data|safe}},
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.9)',
-                        'rgba(255, 99, 132, 0.9)',
-                        'rgba(255, 206, 86, 0.9)',
-                        'rgba(75, 192, 192, 0.9)',
-                        'rgba(153, 102, 255, 0.9)',
-                        'rgba(255, 159, 64, 0.9)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+                datasets: [
+                    {
+                        label: 'Expense',
+                        data: {{expense|safe}},
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.9)',
+                            {#'rgba(255, 99, 132, 0.9)',#}
+                            {#'rgba(255, 206, 86, 0.9)',#}
+                            {#'rgba(75, 192, 192, 0.9)',#}
+                            {#'rgba(153, 102, 255, 0.9)',#}
+                            {#'rgba(255, 159, 64, 0.9)'#}
+                        ],
+                        borderColor: [
+                            {#'rgba(54, 162, 235, 1)',#}
+                            'rgba(255, 99, 132, 1)',
+                            {#'rgba(255, 206, 86, 1)',#}
+                            {#'rgba(75, 192, 192, 1)',#}
+                            {#'rgba(153, 102, 255, 1)',#}
+                            {#'rgba(255, 159, 64, 1)'#}
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Income',
+                        data: {{income|safe}},
+                        backgroundColor: [
+                            {#'rgba(153, 102, 255, 0.9)',#}
+                            'rgba(255, 159, 64, 0.9)'
+                        ],
+                        borderColor: [
+                            'rgba(153, 102, 255, 0.9)',
+                            {#'rgba(255, 99, 132, 1)',#}
+                            {#'rgba(255, 206, 86, 1)',#}
+                            {#'rgba(75, 192, 192, 1)',#}
+                            {#'rgba(153, 102, 255, 1)',#}
+                            {#'rgba(255, 159, 64, 1)'#}
+                        ],
+                        borderWidth: 1
+                    }]
             },
             options: {
                 scales: {

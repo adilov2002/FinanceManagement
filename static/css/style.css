@@ -542,9 +542,12 @@ a:hover {
 }
 
 .add_button:hover {
-    background-color: black;
+    border: 1px solid green;
+    background-color: green;
     color: white;
 }
+
+
 
 .choose-graph {
     width: 100%;
