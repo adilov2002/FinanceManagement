@@ -73,7 +73,6 @@ def purchases(request):
 
     category_list = list(Categories.objects.values_list('name', flat=True))
     purchase_data = Purchases.objects.filter(user__username=request.user.username)
-    print(purchase_data)
     cat = list(Purchases.objects.values_list('item__category__name', flat=True).distinct())
     date = list(Purchases.objects.values_list('date', flat=True).distinct())
 
@@ -96,18 +95,21 @@ def purchases(request):
     merged_datas = sorted(set(datas + income_days))
     correct_income = []
     expense = []
+    sum_income = 0
+    sum_expense = 0
     for d in merged_datas:
         if d not in income_days:
             correct_income.append(0)
         else:
             correct_income.append(sum(incomes.filter(date=d).values_list('price', flat=True)))
+            sum_income += sum(incomes.filter(date=d).values_list('price', flat=True))
         if d not in datas:
             expense.append(0)
         else:
             expense.append(sum(list(purchase_data.filter(date=d).values_list('item__price', flat=True))))
+            sum_expense += sum(list(purchase_data.filter(date=d).values_list('item__price', flat=True)))
 
     merged_tables = list(list(purchase_data) + list(incomes))
-    print(merged_tables)
 
     data = {
         'purchases': merged_tables,
@@ -117,5 +119,7 @@ def purchases(request):
         'cat': cat,
         'category_list': category_list,
         'date': merged_datas,
+        'sum_income': sum_income,
+        'sum_expense': sum_expense
     }
     return render(request, 'purchases.html', data)
