@@ -1,19 +1,19 @@
 {% load static %}
 <div class="header">
     <div class="logo">
-        <a href="/">
+        <a href="{% url 'home' %}">
             <img src="{% static '/images/money.png' %}"><span>FM</span>
         </a>
     </div>
     <div class="links">
         <div class="links_box">
-            <a class="link" href="/">HOME</a>
-            <a class="link" href="/about">ABOUT</a>
-            <a class="link" href="/contact">CONTACT</a>
-            <a href="/auth/register">
+            <a class="link" href="{% url 'home' %}">HOME</a>
+            <a class="link" href="{% url 'about' %}">ABOUT</a>
+            <a class="link" href="{% url 'contact' %}">CONTACT</a>
+            <a href="{% url 'register' %}">
                 <button class="button_register1">REGISTER</button>
             </a>
-            <a href="/auth/login">
+            <a href="{% url 'login' %}">
                 <button class="button1">LOG IN</button>
             </a>
         </div>
