@@ -69,6 +69,7 @@ def purchases(request):
 
     category_list = list(Categories.objects.values_list('name', flat=True))
     purchase_data = Purchases.objects.filter(user__username=request.user.username)
+    print(purchase_data)
     cat = list(Purchases.objects.values_list('item__category__name', flat=True).distinct())
     date = list(Purchases.objects.values_list('date', flat=True).distinct())
 
@@ -101,7 +102,8 @@ def purchases(request):
         else:
             expense.append(sum(list(purchase_data.filter(date=d).values_list('item__price', flat=True))))
 
-    merged_tables = list(purchase_data) + list(incomes)
+    merged_tables = list(list(purchase_data) + list(incomes))
+    print(merged_tables)
 
     data = {
         'purchases': merged_tables,

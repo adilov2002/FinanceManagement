@@ -37,9 +37,10 @@ class Purchases(models.Model):
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     item = models.ForeignKey(Items, verbose_name="Item", on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now)
+    status = models.CharField(default='purchase', max_length=20)
 
     def __str__(self):
-        return self.user.username + '_' + self.item.name + '_' + self.date.__str__() + '_' + self.item.price.__str__()
+        return self.user.username + '_' + self.item.name + '_' + self.date.__str__() + '_' + self.item.price.__str__() + '_' + self.status.__str__()
 
     class Meta:
         verbose_name = 'Purchase'
@@ -63,9 +64,10 @@ class Income(models.Model):
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     price = models.PositiveSmallIntegerField("price", default=0)
     date = models.DateField(default=timezone.now)
+    status = models.CharField(default='income', max_length=20)
 
     def __str__(self):
-        return self.user.username + '_' + self.price.__str__() + '_' + self.date.__str__()
+        return self.user.username + '_' + self.price.__str__() + '_' + self.date.__str__() + '_' + self.status.__str__()
 
     class Meta:
         verbose_name = 'Income'
