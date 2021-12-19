@@ -2,9 +2,13 @@
 
 {% block content %}
     <div class="main_content">
-        <div class="header b_border j_start">
+        <div class="header b_border j_between">
             <div class="true_text">
                 <h3>Purchases Page</h3>
+            </div>
+            <div class="money">
+                <h3>Income: +{{ sum_income }}</h3>
+                <h3>Expense: -{{ sum_expense }}</h3>
             </div>
         </div>
         <div class="back_table">
