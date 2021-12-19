@@ -30,13 +30,26 @@ class Items(models.Model):
 
 class Purchases(models.Model):
     """Purchases"""
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
     item = models.ForeignKey(Items, verbose_name="Item", on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username + '_' + self.item.name + '_' + self.date.date().__str__()
+        return self.user.username + '_' + self.item.name + '_' + self.date.__str__() + '_' + self.item.price.__str__()
 
     class Meta:
         verbose_name = 'Purchase'
         verbose_name_plural = 'Purchases'
+
+
+class Feedback(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(name="first_name", max_length=50)
+    surname = models.CharField(name="last_name", max_length=50)
+    email = models.EmailField(name="email", max_length=120)
+    message = models.TextField(name="message")
+
+    def __str__(self):
+        return self.id.__str__() + '_' + self.name + '_' + self.surname + '_' + self.email
+
