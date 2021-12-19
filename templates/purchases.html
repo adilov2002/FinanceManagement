@@ -127,7 +127,7 @@
                         <thead>
                         <tr>
                             <td width="10%">ID</td>
-                            <td width="40%">Item</td>
+                            <td width="40%">Price</td>
                             <td>Date</td>
                             <td width="10%">Update</td>
                             <td width="10%">Details</td>
@@ -137,7 +137,8 @@
                         {% for item in purchases %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ item.item.name }}</td>
+                                <td>{% if item.status == 'purchase' %}-{{ item.item.price }}{% else %}+
+                                    {{ item.price }}{% endif %}</td>
                                 <td>{{ item.date }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
@@ -163,85 +164,88 @@
                                             </div>
                                             {% if item.status == 'purchase' %}
                                                 <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="hidden" value="{{ item.id }}" name="purchase_id">
-                                                <input type="hidden" value="{{ item.item.id }}" name="item_id">
-                                                <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <label for="category" class="form-label">Category</label>
-                                                        <select class="form-select" name="category" required
-                                                                aria-label="Default select example">
-                                                            <option disabled value="">Choose category of an item
-                                                            </option>
-                                                            {% for category in category_list %}
-                                                                <option value="{{ category }}"
-                                                                        {% if category == item.item.category.name %}
-                                                                        selected {% endif %}>{{ category }}</option>
-                                                            {% endfor %}
-                                                        </select>
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                                    <input type="hidden" value="{{ item.item.id }}" name="item_id">
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="category" class="form-label">Category</label>
+                                                            <select class="form-select" name="category" required
+                                                                    aria-label="Default select example">
+                                                                <option disabled value="">Choose category of an item
+                                                                </option>
+                                                                {% for category in category_list %}
+                                                                    <option value="{{ category }}"
+                                                                            {% if category == item.item.category.name %}
+                                                                            selected {% endif %}>{{ category }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="name" class="form-label">Name</label>
+                                                            <input type="text" class="form-control" id="name"
+                                                                   name="name"
+                                                                   required
+                                                                   value="{{ item.item.name }}"
+                                                                   placeholder="Name">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="price" class="form-label">Price</label>
+                                                            <input type="number" min="0" max="1000000"
+                                                                   class="form-control"
+                                                                   required
+                                                                   value="{{ item.item.price }}"
+                                                                   id="price" name="price"
+                                                                   placeholder="Price">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="date" class="form-label">Date</label>
+                                                            <input type="date" class="form-control" required
+                                                                   value="{{ item.date|date:"Y-m-d" }}"
+                                                                   id="date" name="date">
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="name" class="form-label">Name</label>
-                                                        <input type="text" class="form-control" id="name" name="name"
-                                                               required
-                                                               value="{{ item.item.name }}"
-                                                               placeholder="Name">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <button type="submit" name="updateTransaction"
+                                                                class="btn btn-primary">Update
+                                                        </button>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="price" class="form-label">Price</label>
-                                                        <input type="number" min="0" max="1000000" class="form-control"
-                                                               required
-                                                               value="{{ item.item.price }}"
-                                                               id="price" name="price"
-                                                               placeholder="Price">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="date" class="form-label">Date</label>
-                                                        <input type="date" class="form-control" required
-                                                               value="{{ item.date|date:"Y-m-d" }}"
-                                                               id="date" name="date">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                    <button type="submit" name="updateTransaction"
-                                                            class="btn btn-primary">Update
-                                                    </button>
-                                                </div>
-                                            </form>
+                                                </form>
                                             {% else %}
                                                 <form action="" method="post">
-                                                {% csrf_token %}
-                                                <input type="hidden" value="{{ item.id }}" name="income_id">
-                                                <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <label for="price" class="form-label">Price</label>
-                                                        <input type="number" min="0" max="1000000" class="form-control"
-                                                               required
-                                                               value="{{ item.item.price }}"
-                                                               id="price" name="price"
-                                                               placeholder="Price">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value="{{ item.id }}" name="income_id">
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="price" class="form-label">Price</label>
+                                                            <input type="number" min="0" max="1000000"
+                                                                   class="form-control"
+                                                                   required
+                                                                   value="{{ item.price }}"
+                                                                   id="price" name="price"
+                                                                   placeholder="Price">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="date" class="form-label">Date</label>
+                                                            <input type="date" class="form-control" required
+                                                                   value="{{ item.date|date:"Y-m-d" }}"
+                                                                   id="date" name="date">
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="date" class="form-label">Date</label>
-                                                        <input type="date" class="form-control" required
-                                                               value="{{ item.date|date:"Y-m-d" }}"
-                                                               id="date" name="date">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <button type="submit" name="updateIncome"
+                                                                class="btn btn-primary">Update
+                                                        </button>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                    <button type="submit" name="updateIncome"
-                                                            class="btn btn-primary">Update
-                                                    </button>
-                                                </div>
-                                            </form>
+                                                </form>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -258,48 +262,75 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="category" class="form-label">Category</label>
-                                                    <input type="text" class="form-control" id="category"
-                                                           name="category"
-                                                           value="{{ item.item.category.name }}" readonly
-                                                           placeholder="Category">
+                                            {% if item.status == 'purchase' %}
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="category" class="form-label">Category</label>
+                                                        <input type="text" class="form-control" id="category"
+                                                               name="category"
+                                                               value="{{ item.item.category.name }}" readonly
+                                                               placeholder="Category">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="name" class="form-label">Name</label>
+                                                        <input type="text" class="form-control" id="name" name="name"
+                                                               readonly
+                                                               value="{{ item.item.name }}"
+                                                               placeholder="Name">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="price" class="form-label">Price</label>
+                                                        <input type="number" min="0" max="1000000" class="form-control"
+                                                               readonly
+                                                               value="{{ item.item.price }}"
+                                                               id="price" name="price"
+                                                               placeholder="Price">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="date" class="form-label">Date</label>
+                                                        <input type="date" class="form-control" readonly
+                                                               value="{{ item.date|date:"Y-m-d" }}"
+                                                               id="date" name="date">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label">Name</label>
-                                                    <input type="text" class="form-control" id="name" name="name"
-                                                           readonly
-                                                           value="{{ item.item.name }}"
-                                                           placeholder="Name">
+                                            {% else %}
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="price" class="form-label">Price</label>
+                                                        <input type="number" min="0" max="1000000" class="form-control"
+                                                               readonly
+                                                               value="{{ item.price }}"
+                                                               id="price" name="price"
+                                                               placeholder="Price">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="date" class="form-label">Date</label>
+                                                        <input type="date" class="form-control" readonly
+                                                               value="{{ item.date|date:"Y-m-d" }}"
+                                                               id="date" name="date">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="price" class="form-label">Price</label>
-                                                    <input type="number" min="0" max="1000000" class="form-control"
-                                                           readonly
-                                                           value="{{ item.item.price }}"
-                                                           id="price" name="price"
-                                                           placeholder="Price">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="date" class="form-label">Date</label>
-                                                    <input type="date" class="form-control" readonly
-                                                           value="{{ item.date|date:"Y-m-d" }}"
-                                                           id="date" name="date">
-                                                </div>
-                                            </div>
+                                            {% endif %}
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <form action="" method="post">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" value="{{ item.id }}" name="purchase_id">
-                                                    <input type="hidden" value="{{ item.item.id }}" name="item_id">
-                                                    <button type="submit" name="deleteTransaction"
-                                                            class="btn btn-danger">Delete
-                                                    </button>
+                                                    {% if item.status == 'purchase' %}
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                                        <input type="hidden" value="{{ item.item.id }}" name="item_id">
+                                                        <button type="submit" name="deleteTransaction"
+                                                                class="btn btn-danger">Delete
+                                                        </button>
+                                                    {% else %}
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                                        <button type="submit" name="deleteIncome"
+                                                                class="btn btn-danger">Delete
+                                                        </button>
+                                                    {% endif %}
                                                 </form>
                                             </div>
                                         </div>
