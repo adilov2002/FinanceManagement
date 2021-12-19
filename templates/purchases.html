@@ -219,6 +219,7 @@
                                                     Close
                                                 </button>
                                                 <form action="" method="post">
+                                                    {% csrf_token %}
                                                     <input type="hidden" value="{{ item.id }}" name="purchase_id">
                                                     <input type="hidden" value="{{ item.item.id }}" name="item_id">
                                                     <button type="submit" name="deleteTransaction"
