@@ -66,6 +66,10 @@ def purchases(request):
             income_id = request.POST['income_id']
             Income.objects.filter(id=income_id).update(user=user, price=price, date=date)
             return redirect('/accounts/purchases')
+        elif "deleteIncome" in request.POST:
+            income_id = request.POST['income_id']
+            Income.objects.filter(id=income_id).delete()
+            return redirect('/accounts/purchases')
 
     category_list = list(Categories.objects.values_list('name', flat=True))
     purchase_data = Purchases.objects.filter(user__username=request.user.username)
