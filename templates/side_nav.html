@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="navigation">
-        <a href="#">
+        <a href="{% url 'profile' %} ">
             <div class="nav_elem">
                 <h3><i class="far fa-user"></i>Personal profile</h3>
             </div>
@@ -19,7 +19,7 @@
             </div>
         </a>
         {% endif %}
-        <a href="/purchases">
+        <a href="{% url 'purchases' %}">
             <div class="nav_elem">
                 <h3><i class="far fa-list-alt"></i>Purchases</h3>
             </div>

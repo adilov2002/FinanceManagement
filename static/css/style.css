@@ -3,7 +3,21 @@ body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.footer {
+    min-height: 50px;
+}
+
 a {
+    text-decoration: none !important;
+    color: black;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+a:hover {
     text-decoration: none;
     color: black;
 }
@@ -14,9 +28,10 @@ a {
 
 .display_flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
-.j_start{
+.j_start {
     justify-content: start;
 }
 
@@ -24,15 +39,10 @@ a {
     margin-left: 20px;
 }
 
-.page_content {
-    width: 60%;
-    margin: auto;
-}
-
 .page_form {
     width: 100%;
     margin: auto;
-    padding-top: 30px;
+    padding-top: 15px;
     font-size: 20px;
 }
 
@@ -143,13 +153,15 @@ a {
     padding-left: 10px;
 }
 
+
 .button_outline {
+    width: 100%;
     font-weight: 600;
     padding: 17px 34px;
     border-radius: 20px;
     border: 3px black solid;
     background-color: white;
-    font-size: 30px;
+    font-size: 2vw;
 }
 
 .button_outline:hover {
@@ -179,7 +191,7 @@ a {
     background-position: center;
 }
 
-.content_about {   
+.content_about {
     width: 100%;
     height: 600px;
     background-image: url('https://image.freepik.com/free-vector/multicultural-people-standing-together_74855-6583.jpg');
@@ -189,7 +201,7 @@ a {
 
 .content_login {
     width: 70%;
-    margin: auto;
+    margin: auto auto 50px auto;
     height: 550px;
     box-shadow: 0 0 10px -3px;
     border-radius: 8px;
@@ -221,6 +233,14 @@ a {
     width: 50%;
 }
 
+.c_contact_left {
+    width: 50%;
+}
+
+.c_contact_right {
+    width: 50%;
+}
+
 .c_center {
     width: 50%;
     padding-top: 20px;
@@ -235,6 +255,7 @@ a {
     margin: auto;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -245,6 +266,7 @@ a {
     box-shadow: 0 0 10px -3px;
     border-radius: 8px;
     background-color: white;
+    margin-bottom: 20px;
 }
 
 .card img {
@@ -255,13 +277,14 @@ a {
 .card_content {
     width: 100%;
     padding-left: 10px;
+    min-width: 280px;
 }
 
 .block {
     width: 70%;
     margin: auto;
     padding-top: 100px;
-    font-size: 30px;
+    font-size: 2.5vw;
 }
 
 .block_v1 {
@@ -349,32 +372,83 @@ a {
     display: flex;
 }
 
+.navigation {
+    width: 100%;
+}
+
+
+.nav_elem {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.nav_elem h3 {
+    padding-left: 40px;
+}
+
+@media screen and (max-width: 700px) {
+    .side_nav {
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+
+    div.content {
+        margin-left: 0;
+    }
+
+    .user_info {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        height: 120px;
+        padding: 20px 10px;
+    }
+
+    .main_content {
+        width: 100%;
+    }
+
+    .navigation {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    a {
+        width: 80%;
+        margin: auto;
+    }
+
+    .nav_elem {
+        width: 100%;
+        height: 40px;
+    }
+
+    h3 {
+        font-size: 3vw;
+    }
+
+    .nav_elem h3 {
+        padding-left: 20px;
+    }
+
+}
+
+
+
 .user_data {
     padding-left: 20px;
-}
-
-.user_data p {
-    margin-bottom: 5px;
-}
-
-.user_data span {
-    color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .user_info img {
     border-radius: 50%;
 }
 
-.navigation {
-    width: 100%;
-}
-
-.nav_elem {
-    width: 100%;
-    height: 60px;
-    display: flex;
-
-}
 
 .nav_elem:hover {
     background-color: lightgray;
@@ -403,7 +477,82 @@ a {
     color: white;
 }
 
+.page_content {
+    width: 60%;
+    margin: auto auto 20px auto;
+}
 
+.page_table {
+    width: 80%;
+    margin: auto;
+    padding-top: 30px;
+}
+
+.back_table {
+    width: 100%;
+    min-height: 600px;
+    background: url("https://image.freepik.com/free-vector/electronic-documentation-man-with-registration-checking-repository-log-online-approval-screen-form-validation-page-expense-chronicles-vector-isolated-concept-metaphor-illustration_335657-4323.jpg") no-repeat center;
+}
+
+.graph {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table {
+    margin: 0;
+}
+
+
+.my_table {
+    width: 100%;
+    border-radius: 10px;
+    min-height: 200px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+    margin-bottom: 20px;
+}
+
+.p_left {
+    margin: 20px 0 0 20px;
+}
+
+.p_right {
+    margin: 20px 20px 0 0;
+}
+
+.m_top {
+    margin-top: 10px;
+}
+
+.top {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_button {
+    padding: 8px 16px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+.add_button:hover {
+    background-color: black;
+    color: white;
+}
+
+.choose-graph {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 70px;
+}
 
 @media (max-width: 800px) {
     .links_box {
@@ -431,15 +580,23 @@ a {
     }
 
     .c_left {
-        width: 80%;
+        width: 40%;
     }
 
     .c_right {
-        width: 80%;
+        width: 60%;
     }
 
     .c_right button {
         margin-top: 10px;
+    }
+
+    .c_contact_left {
+        width: 80%;
+    }
+
+    .c_contact_right {
+        width: 80%;
     }
 
     .contact_block {
@@ -451,5 +608,9 @@ a {
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .textarea{
+        margin-bottom: 20px;
     }
 }
