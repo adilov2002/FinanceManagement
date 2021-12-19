@@ -163,13 +163,9 @@
                                                             data-bs-dismiss="modal">
                                                         Close
                                                     </button>
-                                                    <form action="" method="post">
-                                                        <input type="hidden" value="{{ item.id }}" name="purchase_id">
-                                                        <input type="hidden" value="{{ item.item.id }}" name="item_id">
-                                                        <button type="submit" name="updateTransaction"
-                                                                class="btn btn-primary">Update
-                                                        </button>
-                                                    </form>
+                                                    <button type="submit" name="updateTransaction"
+                                                            class="btn btn-primary">Update
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -222,9 +218,13 @@
                                                         data-bs-dismiss="modal">
                                                     Close
                                                 </button>
-                                                <button type="submit" name="deleteTransaction"
-                                                        class="btn btn-danger">Delete
-                                                </button>
+                                                <form action="" method="post">
+                                                    <input type="hidden" value="{{ item.id }}" name="purchase_id">
+                                                    <input type="hidden" value="{{ item.item.id }}" name="item_id">
+                                                    <button type="submit" name="updateTransaction"
+                                                            class="btn btn-primary">Delete
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
